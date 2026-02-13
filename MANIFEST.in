@@ -1,1 +1,2 @@
 recursive-include pyradamsa/lib *
+recursive-include libradamsa *

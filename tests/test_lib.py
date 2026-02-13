@@ -2,7 +2,7 @@ import ctypes
 import pytest
 import pyradamsa
 import sys
-import unittest
+
 
 def test_lib_present():
     assert len(pyradamsa.Radamsa.lib_path()) > 0, 'library not found'

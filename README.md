@@ -14,7 +14,7 @@ How is the `radamsa-upstream` different than the `master` version?
 
 Install the package using `pip` (or [build](#building) it from source)
 ```bash
-pip install pyradamsa
+uv add pyradamsa
 ```
 
 Do some fuzzing
@@ -52,28 +52,15 @@ rad = pyradamsa.Radamsa(mut_offset=2048)
 Currently wheels are available for linux i686 and x86_64
 ```sh
 # Clone the repo
-git clone --recurse-submodules https://github.com/tsundokul/pyradamsa.git
+git clone --recurse-submodules https://github.com/tobiasfunke1/pyradamsa.git
 cd pyradamsa
 
-# patch memory leak when reinitializing owl vm
-patch libradamsa/libradamsa.c realloc.patch
-
-# OPTIONAL: when using manylinux (https://github.com/pypa/manylinux)
-docker run --rm -it -v `pwd`:/io quay.io/pypa/manylinux2010_x86_64 /bin/bash
-cd /io && alias python='/opt/python/cp35-cp35m/bin/python3.5'
-export PATH="/opt/python/cp35-cp35m/bin/:${PATH}"
-
-# Install requirements
-python -m pip install -r requirements.txt
-
-# Build C extension (libradamsa.so)
-python setup.py build_ext
-
 # Run tests
+uv sync
 ./run_tests
 
 # Build wheel
-python setup.py bdist_wheel
+uv build --wheel
 ```
 
 ## Contributing
@@ -87,3 +74,8 @@ python setup.py bdist_wheel
 * Ensure branch is mergeable
 
 _MIT License, 2020_ [@tim17d](https://twitter.com/tim17d)
+
+
+# TODO
+
+- update libradamsa

@@ -1,5 +1,4 @@
 *.py[cod]
-.python-version
 
 # C extensions
 *.so
@@ -37,3 +36,8 @@ htmlcov
 .mr.developer.cfg
 .project
 .pydevproject
+
+# virtual environment
+.venv
+venv
+uv.lock

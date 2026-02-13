@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyradamsa"
+version = "0.2.0"
+description = "Python bindings for radamsa fuzzing library."
+readme = "README.md"
+authors = [{ name = "Daniel Timofte", email = "timofte.daniel@tuta.io" }]
+license = "MIT"
+keywords = ["radamsa", "fuzzing", "libradamsa"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Topic :: Security",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-cov",
+]
+
+[tool.setuptools]
+packages = ["pyradamsa"]
+
+[tool.setuptools.package-data]
+pyradamsa = ["lib/*"]
+
+[[tool.setuptools.ext-modules]]
+name = "pyradamsa.lib.libradamsa"
+sources = ["libradamsa/libradamsa.c"]
+include-dirs = ["libradamsa"]
+py-limited-api = true
+extra-compile-args = ["-O3", "-lrt"]
+
+[tool.distutils.bdist_wheel]
+python-tag = "cp32"
+py-limited-api = "cp32"
+
+[tool.pytest.ini_options]
+cache_dir = ".venv/.pytest_cache"
+norecursedirs = [".venv*", ".*"]
+addopts = [
+    "-r",
+    "fEsxXw",
+    "-vvv",
+    "--doctest-modules",
+    "--ignore=setup.py",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov=pyradamsa",
+    "--maxfail=1",
+]
